@@ -10,7 +10,6 @@ export default defineConfig({
     vue(),
     vueJsx(),
   ],
-  base: '/vue-sneakers/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
