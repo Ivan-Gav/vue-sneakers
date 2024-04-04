@@ -5,7 +5,7 @@
       :key="item.id"
       :id="item.id"
       :title="item.title"
-      :imageUrl="item.imageUrl"
+      :imageUrl="`.${item.imageUrl}`"
       :price="item.price"
       :isFavorite="item.isFavorite"
       :onFavoriteClick="() => emit('addToFavorites', item)"

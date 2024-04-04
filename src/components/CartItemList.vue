@@ -5,7 +5,7 @@
       :key="item.id"
       :title="item.title"
       :price="item.price"
-      :image-url="item.imageUrl"
+      :image-url="`.${item.imageUrl}`"
       @remove-click="() => addToCart(item)"
     />
   </div>
