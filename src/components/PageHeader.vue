@@ -9,30 +9,44 @@
     </RouterLink>
 
     <nav class="flex items-center gap-10">
-      <li
+      <div
         @click="() => emit('openDrawer')"
         class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black"
       >
-        <img src="/cart.svg" alt="cart" />
-        <strong>{{ totalPrice }} руб.</strong>
-      </li>
+        <div class="relative">
+          <QtyBadge :qty="cart.length" color="green" />
+          <img src="/cart.svg" alt="cart" />
+        </div>
+        <strong>{{ total }} руб.</strong>
+      </div>
 
-      <RouterLink to="favorites" class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
-        <img src="/heart.svg" alt="favorite" />
+      <RouterLink
+        to="favorites"
+        class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black"
+      >
+        <div class="relative">
+          <QtyBadge :qty="favorites.length" color="rose"/>
+          <img src="/heart.svg" alt="favorite" />
+        </div>
         <span>Закладки</span>
       </RouterLink>
 
-      <li class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
+      <div class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
         <img src="/profile.svg" alt="profile" />
         <span>Профиль</span>
-      </li>
+      </div>
     </nav>
   </header>
 </template>
 
 <script setup>
+import { inject } from 'vue';
+import QtyBadge from './QtyBadge.vue'
 const emit = defineEmits(['openDrawer'])
-defineProps({
-  totalPrice: Number
-})
+
+const { total, cart } = inject('cart')
+const { favorites } = inject('favorites')
+// defineProps({
+//   totalPrice: Number
+// })
 </script>
