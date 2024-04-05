@@ -1,10 +1,9 @@
 <template>
-  <div class="flex items-center gap-4 border border-slate-200 rounded-xl p-4">
+  <div class="flex items-start min-h-32 gap-4 border border-slate-200 rounded-xl p-4">
     <img class="w-16 h-16" :src="imageUrl" alt="sneakers">
-    <div class="flex flex-col">
-      <h4>{{ title }}</h4>
-
-      <div class="flex justify-between mt-2">
+    <div class="flex flex-col grow h-full">
+      <h4 class="mt-3 grow" >{{ title }}</h4>
+      <div class="flex gap-4 justify-end items-center mt-2">
         <strong>{{ price }} руб</strong>
         <img 
           @click="emit('removeClick')"
