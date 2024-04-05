@@ -5,18 +5,21 @@
     :delivery-price="deliveryPrice"
   />
 
-  <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
+  <div class="bg-white md:w-4/5 m-auto rounded-xl shadow-xl md:my-10 flex flex-col min-h-dvh md:min-h-[calc(100dvh-80px)]">
     <PageHeader @open-drawer="openDrawer" />
 
-    <main class="p-10">
+    <main class="p-10 grow flex flex-col">
       <RouterView />
     </main>
+
+    <PageFooter />
   </div>
 </template>
 
 <script setup>
 import { computed, provide, ref, watch } from 'vue'
 import PageHeader from './components/PageHeader.vue'
+import PageFooter from './components/PageFooter.vue'
 import CartDrawer from './components/CartDrawer.vue'
 
 const cart = ref([])
