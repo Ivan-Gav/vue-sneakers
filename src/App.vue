@@ -43,10 +43,12 @@ const addToCart = (item) => {
 
 const openDrawer = () => {
   drawerOpen.value = true
+  document.body.style.overflow = 'hidden'
 }
 
 const closeDrawer = () => {
   drawerOpen.value = false
+  document.body.style.overflow = 'auto'
 }
 
 watch(

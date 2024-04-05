@@ -2,12 +2,15 @@
   <div
     class="flex flex-col relative h-full bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-1 hover:shadow-xl transition"
   >
-    <img
-      :src="isFavorite ? './like-2.svg' : './like-1.svg'"
-      alt="like"
-      class="absolute top-8 left-8"
-      @click="onFavoriteClick"
-    />
+    <button @click="onFavoriteClick">
+      <img
+        width="32"
+        height="32"
+        :src="isFavorite ? './like-2.svg' : './like-1.svg'"
+        alt="like"
+        class="absolute top-8 left-8"
+      />
+    </button>
     <div class="min-h-8">
       <img :src="imageUrl" alt="" />
     </div>
@@ -17,8 +20,14 @@
         <span class="text-slate-400">Цена:</span>
         <strong>{{ price }} руб.</strong>
       </div>
-
-      <img :src="isAdded ? './checked.svg' : './plus.svg'" alt="plus" @click="onAddClick" />
+      <button @click="onAddClick">
+        <img
+          width="32"
+          height="32"
+          :src="isAdded ? './checked.svg' : './plus.svg'"
+          alt="plus"
+        />
+      </button>
     </div>
   </div>
 </template>

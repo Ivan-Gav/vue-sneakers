@@ -1,6 +1,6 @@
 <template>
   <div class="fixed inset-0 bg-black opacity-70 z-10" @click="closeDrawer"></div>
-  <div class="flex flex-col fixed right-0 top-0 bg-white w-96 h-full z-20 p-8">
+  <div class="flex flex-col fixed right-0 top-0 bg-white w-96 h-full z-20 p-8  overflow-y-auto">
     <div class="flex items-baseline gap-5 mb-8">
       <ArrowSVG
         @click="closeDrawer"
