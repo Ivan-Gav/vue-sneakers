@@ -8,9 +8,9 @@
       :imageUrl="`.${item.imageUrl}`"
       :price="item.price"
       :isFavorite="item.isFavorite"
-      :onFavoriteClick="() => emit('addToFavorites', item)"
+      :onFavoriteClick="() => emit('handleFavorites', item)"
       :isAdded="item.isAdded"
-      :onAddClick="() => emit('addToCart', item)"
+      :onAddClick="() => emit('handleCart', item)"
     />
   </div>
 </template>
@@ -22,7 +22,7 @@ defineProps({
   items: Array
 })
 
-const emit = defineEmits(['addToFavorites', 'addToCart'])
+const emit = defineEmits(['handleFavorites', 'handleCart'])
 
 </script>
 

@@ -6,7 +6,7 @@
       :title="item.title"
       :price="item.price"
       :image-url="`.${item.imageUrl}`"
-      @remove-click="() => addToCart(item)"
+      @remove-click="() => handleCart(item)"
     />
   </div>
 </template>
@@ -15,7 +15,7 @@
 import { inject } from 'vue'
 import CartItem from './CartItem.vue'
 
-const { cart, addToCart } = inject('cart')
+const { cart, handleCart } = inject('cart')
 </script>
 
 <style></style>

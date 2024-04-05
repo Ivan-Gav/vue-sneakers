@@ -21,45 +21,24 @@
     </div>
   </div>
 
-  <ProductList :items="items" @add-to-favorites="addToFavorites" @add-to-cart="addToCart" />
+  <ProductList :items="items" @handle-favorites="handleFavorites" @handle-cart="handleCart" />
 </template>
 
 <script setup>
-  import { inject, reactive, watch, ref, onMounted } from 'vue'
-  import axios from 'axios'
-  import debounce from 'lodash.debounce'
-  import ProductList from '../components/ProductList.vue'
+import { inject, reactive, watch, ref, onMounted } from 'vue'
+import axios from 'axios'
+import debounce from 'lodash.debounce'
+import ProductList from '../components/ProductList.vue'
 
-  const items = ref([])
+const items = ref([])
 
-  const filters = reactive({
-    sortBy: 'title',
-    searchQuery: ''
-  })
+const filters = reactive({
+  sortBy: 'title',
+  searchQuery: ''
+})
 
-  const { addToCart, cart } = inject('cart')
-
-  const fetchFavorites = async () => {
-  try {
-    const { data: favorites } = await axios.get(`https://6b389cda7832ddc2.mokky.dev/favorites`)
-
-    items.value = items.value.map((item) => {
-      const favorite = favorites.find((favorite) => item.id === favorite.item_id)
-
-      if (!favorite) {
-        return item
-      }
-
-      return {
-        ...item,
-        isFavorite: true,
-        favoriteId: favorite.id
-      }
-    })
-  } catch (err) {
-    console.log(err)
-  }
-}
+const { handleCart, cart } = inject('cart')
+const { handleFavorites, favorites } = inject('favorites')
 
 const fetchItems = async () => {
   const params = {
@@ -76,68 +55,31 @@ const fetchItems = async () => {
     })
     items.value = data.map((obj) => ({
       ...obj,
-      isFavorite: false,
-      isAdded: false,
-      favoriteId: null
+      isFavorite: favorites.value.some((favorite) => favorite.id === obj.id),
+      isAdded: cart.value.some((cartItem) => cartItem.id === obj.id)
     }))
   } catch (err) {
     console.log(err)
   }
 }
 
-  const onSelectChange = (e) => {
-    filters.sortBy = e.target.value
+const onSelectChange = (e) => {
+  filters.sortBy = e.target.value
+}
+
+const onSearchInputChange = debounce((e) => {
+  filters.searchQuery = e.target.value
+}, 500)
+
+onMounted(async () => {
+  const localCart = localStorage.getItem('cart')
+  if (localCart) {
+    cart.value = JSON.parse(localCart)
   }
+  fetchItems()
+})
 
-  const onSearchInputChange = debounce((e) => {
-    filters.searchQuery = e.target.value
-  }, 500)
-
-  const addToFavorites = async (item) => {
-    item.isFavorite = !item.isFavorite
-    if (item.isFavorite) {
-      try {
-        const { data } = await axios.post(`https://6b389cda7832ddc2.mokky.dev/favorites`, {
-          item_id: item.id
-        })
-        item.favoriteId = data.id
-      } catch (err) {
-        console.log(err)
-      }
-    } else {
-      try {
-        await axios.delete(`https://6b389cda7832ddc2.mokky.dev/favorites/${item.favoriteId}`)
-        item.favoriteId = null
-      } catch (err) {
-        console.log(err)
-      }
-    }
-  }
-
-  onMounted(async () => {
-    await fetchItems()
-    await fetchFavorites()
-    const localCart = localStorage.getItem('cart')
-    if (localCart) {
-      cart.value = JSON.parse(localCart)
-      items.value = items.value.map((item) => ({
-        ...item,
-        isAdded: cart.value.some((cartItem) => cartItem.id === item.id)
-      }))
-    }
-  })
-
-  watch(cart, () => {
-    if (cart.value.length) {
-      return
-    }
-    items.value = items.value.map((item) => ({
-      ...item,
-      isAdded: false
-    }))
-  })
-
-  watch(filters, fetchItems)
+watch(filters, fetchItems)
 </script>
 
 <style scoped></style>

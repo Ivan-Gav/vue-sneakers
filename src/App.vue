@@ -6,7 +6,7 @@
   />
 
   <div class="bg-white w-4/5 m-auto rounded-xl shadow-xl mt-10">
-    <PageHeader @open-drawer="openDrawer" :totalPrice="total" />
+    <PageHeader @open-drawer="openDrawer" />
 
     <main class="p-10">
       <RouterView />
@@ -20,6 +20,7 @@ import PageHeader from './components/PageHeader.vue'
 import CartDrawer from './components/CartDrawer.vue'
 
 const cart = ref([])
+const favorites = ref([])
 
 const total = computed(() => cart.value.reduce((total, item) => total + item.price, 0))
 const deliveryPrice = computed(() => {
@@ -32,12 +33,21 @@ const deliveryPrice = computed(() => {
 
 const drawerOpen = ref(false)
 
-const addToCart = (item) => {
+const handleCart = (item) => {
   item.isAdded = !item.isAdded
   if (item.isAdded) {
     cart.value.push(item)
   } else {
     cart.value.splice(cart.value.indexOf(item), 1)
+  }
+}
+
+const handleFavorites = (item) => {
+  item.isFavorite = !item.isFavorite
+  if (item.isFavorite) {
+    favorites.value.push(item)
+  } else {
+    favorites.value.splice(favorites.value.indexOf(item), 1)
   }
 }
 
@@ -62,9 +72,13 @@ watch(
 provide('cart', {
   openDrawer,
   closeDrawer,
-  addToCart,
+  handleCart,
   cart,
   total
+})
+provide('favorites', {
+  favorites,
+  handleFavorites
 })
 </script>
 
