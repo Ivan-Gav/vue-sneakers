@@ -2,7 +2,7 @@
   <header class="flex justify-between border-b border-slate-300 px-10 py-8">
     <RouterLink to="/" class="flex items-center gap-4">
       <img src="/logo.png" alt="logo" class="w-10" />
-      <div>
+      <div class="hidden md:inline-block">
         <h2 class="text-xl font-bold uppercase">Vue Sneakers</h2>
         <p class="text-slate-500">Магазин лучших кроссовок</p>
       </div>
@@ -17,7 +17,7 @@
           <QtyBadge :qty="cart.length" color="green" />
           <img src="/cart.svg" alt="cart" />
         </div>
-        <strong>{{ total }} руб.</strong>
+        <strong class="hidden lg:inline-block">{{ total }} руб.</strong>
       </div>
 
       <RouterLink
@@ -28,12 +28,12 @@
           <QtyBadge :qty="favorites.length" color="rose"/>
           <img src="/heart.svg" alt="favorite" />
         </div>
-        <span>Закладки</span>
+        <span class="hidden lg:inline-block">Закладки</span>
       </RouterLink>
 
       <div class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black">
         <img src="/profile.svg" alt="profile" />
-        <span>Профиль</span>
+        <span class="hidden lg:inline-block">Профиль</span>
       </div>
     </nav>
   </header>
@@ -46,7 +46,5 @@ const emit = defineEmits(['openDrawer'])
 
 const { total, cart } = inject('cart')
 const { favorites } = inject('favorites')
-// defineProps({
-//   totalPrice: Number
-// })
+
 </script>

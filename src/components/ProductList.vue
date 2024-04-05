@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-4 gap-5" v-auto-animate>
+  <div class="grid grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] justify-items-center gap-5" v-auto-animate>
     <ProductCard 
       v-for="item in items"
       :key="item.id"

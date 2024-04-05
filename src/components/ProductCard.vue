@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col relative h-full bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-1 hover:shadow-xl transition"
+    class="flex flex-col relative h-full max-w-64 bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer hover:-translate-y-1 hover:shadow-xl transition"
   >
     <button @click="onFavoriteClick">
       <img

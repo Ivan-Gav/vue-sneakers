@@ -1,9 +1,9 @@
 <template>
-  <div class="flex justify-between items-center">
-    <h2 class="text-3xl font-bold mb-8">Все кроссовки</h2>
+  <div class="flex flex-col lg:flex-row justify-between lg:items-center mb-8 gap-4">
+    <h2 class="text-3xl font-bold">Все кроссовки</h2>
 
-    <div class="flex justify-center gap-4">
-      <select @change="onSelectChange" class="py-2 rounded-md border outline-none">
+    <div class="flex flex-col lg:justify-center md:flex-row gap-4">
+      <select @change="onSelectChange" class="p-2 rounded-md border outline-none">
         <option value="name">По названию</option>
         <option value="price">По цене (дешевые)</option>
         <option value="-price">По цене (дорогие)</option>
@@ -13,7 +13,7 @@
         <img class="absolute left-3 top-3" src="/search.svg" alt="" />
         <input
           @input="onSearchInputChange"
-          class="border rounded-md py-2 pl-11 pr-4 outline-none focus:border-gray-400"
+          class="border rounded-md py-2 pl-9 pr-4 outline-none w-full focus:border-gray-400"
           type="text"
           placeholder="поиск..."
         />
