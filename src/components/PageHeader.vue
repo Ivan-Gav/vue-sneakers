@@ -14,7 +14,7 @@
         class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black"
       >
         <div class="relative">
-          <QtyBadge :qty="cart.length" color="green" />
+          <QtyBadge :qty="cartQty" color="green" />
           <img src="/cart.svg" alt="cart" />
         </div>
         <strong class="hidden lg:inline-block">{{ total }} руб.</strong>
@@ -44,7 +44,7 @@ import { inject } from 'vue';
 import QtyBadge from './QtyBadge.vue'
 const emit = defineEmits(['openDrawer'])
 
-const { total, cart } = inject('cart')
+const { total, cartQty } = inject('cart')
 const { favorites } = inject('favorites')
 
 </script>

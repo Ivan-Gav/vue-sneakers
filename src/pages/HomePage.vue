@@ -37,7 +37,7 @@ const filters = reactive({
   searchQuery: ''
 })
 
-const { handleCart, cart } = inject('cart')
+const { handleCart, cart, cartQty } = inject('cart')
 const { handleFavorites, favorites } = inject('favorites')
 
 const fetchItems = async () => {
@@ -56,7 +56,7 @@ const fetchItems = async () => {
     items.value = data.map((obj) => ({
       ...obj,
       isFavorite: favorites.value.some((favorite) => favorite.id === obj.id),
-      isAdded: cart.value.some((cartItem) => cartItem.id === obj.id)
+      isAdded: cart.value.items.some((cartItem) => cartItem.id === obj.id)
     }))
   } catch (err) {
     console.log(err)
@@ -76,8 +76,29 @@ onMounted(async () => {
   if (localCart) {
     cart.value = JSON.parse(localCart)
   }
+  const localFavs = localStorage.getItem('favorites')
+  if (localFavs) {
+    favorites.value = JSON.parse(localFavs)
+  }
   fetchItems()
 })
+
+// watch(cart, () => {
+//   if (!cartQty.value) {
+//     items.value.forEach((item) => (item.isAdded = false))
+//   }
+// })
+
+watch(cart, () => {
+  if (!cartQty.value) {
+    items.value.forEach((item) => (item.isAdded = false))
+  } else {
+    items.value.forEach((item) => {
+      item.isAdded = cart.value.items.some((cartItem) => cartItem.id === item.id)
+    })
+  }
+}, {deep: true})
+
 
 watch(filters, fetchItems)
 </script>

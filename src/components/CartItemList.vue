@@ -1,12 +1,14 @@
 <template>
-  <div class="flex flex-col gap-4 flex-1" v-auto-animate>
+  <div class="flex flex-col gap-4" v-auto-animate>
     <CartItem
-      v-for="item in cart"
+      v-for="item in cart.items"
       :key="item.id"
       :title="item.title"
       :price="item.price"
       :image-url="`.${item.imageUrl}`"
+      :qty=item.qty
       @remove-click="() => handleCart(item)"
+      @change-qty="(qty) => handleCartQty(item, qty)"
     />
   </div>
 </template>
@@ -15,7 +17,7 @@
 import { inject } from 'vue'
 import CartItem from './CartItem.vue'
 
-const { cart, handleCart } = inject('cart')
+const { cart, handleCart, handleCartQty } = inject('cart')
 </script>
 
 <style></style>

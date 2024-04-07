@@ -1,11 +1,9 @@
 <template>
-  <CartDrawer
-    v-if="drawerOpen"
-    :total-price="total"
-    :delivery-price="deliveryPrice"
-  />
+  <CartDrawer v-if="drawerOpen" :total-price="total" :delivery-price="deliveryPrice" />
 
-  <div class="bg-white md:w-4/5 m-auto rounded-xl shadow-xl md:my-10 flex flex-col min-h-dvh md:min-h-[calc(100dvh-80px)]">
+  <div
+    class="bg-white md:w-4/5 m-auto rounded-xl shadow-xl md:my-10 flex flex-col min-h-dvh md:min-h-[calc(100dvh-80px)]"
+  >
     <PageHeader @open-drawer="openDrawer" />
 
     <main class="p-10 grow flex flex-col">
@@ -22,10 +20,22 @@ import PageHeader from './components/PageHeader.vue'
 import PageFooter from './components/PageFooter.vue'
 import CartDrawer from './components/CartDrawer.vue'
 
-const cart = ref([])
+const emptyCart = Object.freeze({
+  user: {
+    name: '',
+    phone: '',
+    email: '',
+    deliveryAddress: ''
+  },
+  items: []
+})
+
+const cart = ref({ ...emptyCart })
 const favorites = ref([])
 
-const total = computed(() => cart.value.reduce((total, item) => total + item.price, 0))
+const total = computed(() => cart.value.items.reduce((total, item) => total + item.price * item.qty, 0))
+const cartQty = computed(() => cart.value.items.length)
+
 const deliveryPrice = computed(() => {
   if (!total.value || total.value === 0 || total.value >= 15000) {
     return 0
@@ -39,11 +49,23 @@ const drawerOpen = ref(false)
 const handleCart = (item) => {
   item.isAdded = !item.isAdded
   if (item.isAdded) {
-    cart.value.push(item)
+    cart.value.items.push({
+      ...item,
+      qty: 1
+    })
   } else {
-    cart.value.splice(cart.value.indexOf(item), 1)
+    cart.value.items.splice(cart.value.items.findIndex((cartItem) => item.id === cartItem.id), 1)
+  }
+  if (!cart.value.items.length) {
+    clearCart()
   }
 }
+
+const handleCartQty = (item, qty) => {
+  const cItem = cart.value.items.find((cartItem) => cartItem.id === item.id)
+  cItem.qty = qty
+}
+
 
 const handleFavorites = (item) => {
   item.isFavorite = !item.isFavorite
@@ -51,6 +73,18 @@ const handleFavorites = (item) => {
     favorites.value.push(item)
   } else {
     favorites.value.splice(favorites.value.indexOf(item), 1)
+  }
+}
+
+const clearCart = () => {
+  cart.value = {
+    user: {
+      name: '',
+      phone: '',
+      email: '',
+      deliveryAddress: ''
+    },
+    items: []
   }
 }
 
@@ -72,12 +106,23 @@ watch(
   { deep: true }
 )
 
+watch(
+  favorites,
+  () => {
+    localStorage.setItem('favorites', JSON.stringify(favorites.value))
+  },
+  { deep: true }
+)
+
 provide('cart', {
   openDrawer,
   closeDrawer,
   handleCart,
+  handleCartQty,
   cart,
-  total
+  total,
+  cartQty,
+  clearCart
 })
 provide('favorites', {
   favorites,
