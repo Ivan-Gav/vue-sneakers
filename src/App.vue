@@ -2,7 +2,7 @@
   <CartDrawer v-if="drawerOpen" :total-price="total" :delivery-price="deliveryPrice" />
 
   <div
-    class="bg-white md:w-4/5 m-auto rounded-xl shadow-xl md:my-10 flex flex-col min-h-dvh md:min-h-[calc(100dvh-80px)]"
+    class="bg-white md:w-4/5 m-auto md:rounded-xl shadow-xl md:my-10 flex flex-col min-h-dvh md:min-h-[calc(100dvh-80px)]"
   >
     <PageHeader @open-drawer="openDrawer" />
 

@@ -11,14 +11,14 @@
         class="absolute top-8 left-8"
       />
     </button>
-    <div class="min-h-8">
+    <div class="min-h-8 aspect-square">
       <img :src="imageUrl" alt="" />
     </div>
     <h4 class="grow mt-2">{{ title }}</h4>
     <div class="flex justify-between mt-5">
       <div class="flex flex-col">
         <span class="text-slate-400">Цена:</span>
-        <strong>{{ price }} руб.</strong>
+        <strong>{{ price }} ₽</strong>
       </div>
       <button @click="onAddClick">
         <img

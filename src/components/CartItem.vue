@@ -1,32 +1,37 @@
 <template>
-  <div class="grid grid-cols-4 gap-2 items-center border border-slate-200 rounded-xl p-4">
-    <img class="w-16 h-16 self-start" :src="`.${item.imageUrl}`" alt="sneakers" />
-    <h4 class="mt-3 grow col-span-3 self-start">{{ item.title }}</h4>
+  <div class="grid grid-cols-5 gap-2 items-center border border-slate-200 rounded-xl p-4">
+    <img class="col-span-2 self-start" :src="`.${item.imageUrl}`" alt="sneakers" />
+    <h4 class="grow col-span-3 self-start">{{ item.title }}</h4>
 
-    <label :for="`size-select-${item.id}`">Размер:</label>
-    <select
-      :name="`size-select-${item.id}`"
-      :id="`size-select-${item.id}`"
-      class="w-12 border border-slate-200 rounded-md outline-none text-center"
-      v-model="s"
-      @change="emit('changeSize', s)"
-    >
-      <option v-for="size in item.sizes" :key="item.id - size" :value="size">{{ size }}</option>
-    </select>
+    <div class="col-span-4 flex items-center gap-2 justify-start">
+      <label :for="`size-select-${item.id}`">Размер:</label>
+      <select
+        :name="`size-select-${item.id}`"
+        :id="`size-select-${item.id}`"
+        class="w-12 border border-slate-200 rounded-md outline-none text-center font-normal"
+        v-model="s"
+        @change="emit('changeSize', s)"
+      >
+        <option v-for="size in item.sizes" :key="item.id - size" :value="size">{{ size }}</option>
+      </select>
+      <span class="text-right justify-self-end font-medium flex-1">{{ item.price }} ₽</span>
+    </div>
 
-    <span class="text-right font-semibold">{{ item.price }} ₽</span>
-    <input
-      type="number"
-      @input="emit('changeQty', q)"
-      v-model="q"
-      min="1"
-      max="20"
-      class="w-10 border border-slate-200 rounded-md outline-none justify-self-end text-center custom-number-input"
-    />
+    <div class="flex items-center gap-2 justify-end">
+      
+      <input
+        type="number"
+        @input="emit('changeQty', q)"
+        v-model="q"
+        min="1"
+        max="20"
+        class="w-10 border border-slate-200 rounded-md outline-none justify-self-end text-center custom-number-input"
+      />
+    </div>
 
-    <div class="col-span-4 w-full border-t my-2"></div>
+    <div class="col-span-5 w-full border-t my-2"></div>
 
-    <strong class="col-span-3 text-right">{{ item.price * item.qty }} ₽</strong>
+    <strong class="col-span-4 text-right font-bold">{{ item.price * item.qty }} ₽</strong>
     <button type="button" @click="emit('removeClick')" class="justify-self-end">
       <img
         width="26"
