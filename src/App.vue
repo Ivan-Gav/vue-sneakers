@@ -34,7 +34,7 @@ const cart = ref({ ...emptyCart })
 const favorites = ref([])
 
 const total = computed(() => cart.value.items.reduce((total, item) => total + item.price * item.qty, 0))
-const cartQty = computed(() => cart.value.items.length)
+const cartQty = computed(() => cart.value.items.reduce((qty, item) => qty + item.qty, 0))
 
 const deliveryPrice = computed(() => {
   if (!total.value || total.value === 0 || total.value >= 15000) {
@@ -51,7 +51,8 @@ const handleCart = (item) => {
   if (item.isAdded) {
     cart.value.items.push({
       ...item,
-      qty: 1
+      qty: 1,
+      selectedSize: item.sizes[0] || null
     })
   } else {
     cart.value.items.splice(cart.value.items.findIndex((cartItem) => item.id === cartItem.id), 1)
@@ -64,6 +65,13 @@ const handleCart = (item) => {
 const handleCartQty = (item, qty) => {
   const cItem = cart.value.items.find((cartItem) => cartItem.id === item.id)
   cItem.qty = qty
+}
+
+const handleSize = (item, size) => {
+  if (item.sizes.includes(size)) {
+      const cItem = cart.value.items.find((cartItem) => cartItem.id === item.id)
+      cItem.selectedSize = size
+  }
 }
 
 
@@ -119,6 +127,7 @@ provide('cart', {
   closeDrawer,
   handleCart,
   handleCartQty,
+  handleSize,
   cart,
   total,
   cartQty,

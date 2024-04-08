@@ -4,7 +4,7 @@
       <img src="/logo.png" alt="logo" class="w-10" />
       <div class="hidden md:inline-block">
         <h2 class="text-xl font-bold uppercase">Vue Sneakers</h2>
-        <p class="text-slate-500">Магазин лучших кроссовок</p>
+        <p class="text-slate-500">Магазин кроссовок</p>
       </div>
     </RouterLink>
 

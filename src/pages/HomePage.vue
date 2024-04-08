@@ -3,7 +3,7 @@
     <h2 class="text-3xl font-bold">Все кроссовки</h2>
 
     <div class="flex flex-col lg:justify-center md:flex-row gap-4">
-      <select @change="onSelectChange" class="p-2 rounded-md border outline-none">
+      <select @change="onSelectChange" class="p-2 rounded-md border outline-none" id="sort-select">
         <option value="name">По названию</option>
         <option value="price">По цене (дешевые)</option>
         <option value="-price">По цене (дорогие)</option>
@@ -16,6 +16,7 @@
           class="border rounded-md py-2 pl-9 pr-4 outline-none w-full focus:border-gray-400"
           type="text"
           placeholder="поиск..."
+          id="search-input"
         />
       </div>
     </div>

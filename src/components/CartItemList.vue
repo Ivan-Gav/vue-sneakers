@@ -3,12 +3,10 @@
     <CartItem
       v-for="item in cart.items"
       :key="item.id"
-      :title="item.title"
-      :price="item.price"
-      :image-url="`.${item.imageUrl}`"
-      :qty=item.qty
+      :item="item"
       @remove-click="() => handleCart(item)"
       @change-qty="(qty) => handleCartQty(item, qty)"
+      @change-size="(size) => handleSize(item, size)"
     />
   </div>
 </template>
@@ -17,7 +15,7 @@
 import { inject } from 'vue'
 import CartItem from './CartItem.vue'
 
-const { cart, handleCart, handleCartQty } = inject('cart')
+const { cart, handleCart, handleCartQty, handleSize } = inject('cart')
 </script>
 
 <style></style>

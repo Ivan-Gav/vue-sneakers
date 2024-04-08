@@ -9,7 +9,7 @@
       <h2 class="text-2xl font-bold">Корзина</h2>
     </div>
 
-    <form @submit="createOrder" v-if="totalPrice" class="flex flex-col grow">
+    <form @submit.prevent="createOrder" v-if="totalPrice" class="flex flex-col grow">
       <CartItemList />
 
       <div class="flex flex-col gap-4 my-6">
@@ -77,8 +77,7 @@ const isBtnDisabled = computed(() =>
   props.isCreatingOrder ? true : props.totalPrice ? false : true
 )
 
-const createOrder = async (e) => {
-  e.preventDefault()
+const createOrder = async () => {
   isCreatingOrder.value = true
   try {
     const { data } = await axios.post(`https://6b389cda7832ddc2.mokky.dev/orders`, {
