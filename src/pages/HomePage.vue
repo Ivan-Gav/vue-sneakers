@@ -10,7 +10,7 @@
       </select>
 
       <div class="relative">
-        <img class="absolute left-3 top-3" src="/search.svg" alt="" />
+        <SearchSVG class="absolute left-3 top-3 text-slate-400" />
         <input
           @input="onSearchInputChange"
           class="border rounded-md py-2 pl-9 pr-4 outline-none w-full focus:border-gray-400"
@@ -30,6 +30,7 @@ import { inject, reactive, watch, ref, onMounted } from 'vue'
 import axios from 'axios'
 import debounce from 'lodash.debounce'
 import ProductList from '../components/ProductList.vue'
+import SearchSVG from '@/components/svg/SearchSVG.vue'
 
 const items = ref([])
 
