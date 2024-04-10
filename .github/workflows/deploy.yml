@@ -39,6 +39,7 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Prepare GH routing
         run: npm run deploy
       - name: Setup Pages
         uses: actions/configure-pages@v4
