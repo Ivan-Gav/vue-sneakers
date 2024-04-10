@@ -15,19 +15,19 @@
         <span class="text-slate-400">Цена:</span>
         <strong>{{ price }} ₽</strong>
       </div>
-      <button @click="onAddClick" >
-        <CheckedSVG v-if="isAdded" class="opacity-80 hover:opacity-100 transition"/>
-        <PlusBtnSVG v-else class="text-slate-400 opacity-60 hover:opacity-100 transition"/>
+      <button @click="onAddClick">
+        <CheckedSVG v-if="isAdded" class="opacity-80 hover:opacity-100 transition" />
+        <PlusBtnSVG v-else class="text-slate-400 opacity-60 hover:opacity-100 transition" />
       </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import PlusBtnSVG from './svg/PlusBtnSVG.vue';
-import CheckedSVG from './svg/CheckedSVG.vue';
-import HeartBtnSVG from './svg/HeartBtnSVG.vue';
-import HeartBtnActiveSVG from './svg/HeartBtnActiveSVG.vue';
+import PlusBtnSVG from './svg/PlusBtnSVG.vue'
+import CheckedSVG from './svg/CheckedSVG.vue'
+import HeartBtnSVG from './svg/HeartBtnSVG.vue'
+import HeartBtnActiveSVG from './svg/HeartBtnActiveSVG.vue'
 
 defineProps({
   title: String,
@@ -40,5 +40,3 @@ defineProps({
   onAddClick: Function
 })
 </script>
-
-<style></style>

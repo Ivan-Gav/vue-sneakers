@@ -18,7 +18,6 @@
     </div>
 
     <div class="flex items-center gap-2 justify-end">
-      
       <input
         type="number"
         @input="emit('changeQty', q)"
@@ -33,14 +32,16 @@
 
     <strong class="col-span-4 text-right font-bold">{{ item.price * item.qty }} ₽</strong>
     <button type="button" @click="emit('removeClick')" class="justify-self-end">
-      <CloseSVG class="h-[26px] text-slate-400 opacity-40 hover:opacity-100 cursor-pointer transition"/>
+      <CloseSVG
+        class="h-[26px] text-slate-400 opacity-40 hover:opacity-100 cursor-pointer transition"
+      />
     </button>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import CloseSVG from './svg/CloseSVG.vue';
+import CloseSVG from './svg/CloseSVG.vue'
 
 const props = defineProps({
   item: Object

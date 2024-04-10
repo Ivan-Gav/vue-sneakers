@@ -1,6 +1,9 @@
 <template>
-  <div class="grid grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] justify-items-center gap-5" v-auto-animate>
-    <ProductCard 
+  <div
+    class="grid grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] justify-items-center gap-5"
+    v-auto-animate
+  >
+    <ProductCard
       v-for="item in items"
       :key="item.id"
       :id="item.id"
@@ -23,7 +26,4 @@ defineProps({
 })
 
 const emit = defineEmits(['handleFavorites', 'handleCart'])
-
 </script>
-
-<style></style>

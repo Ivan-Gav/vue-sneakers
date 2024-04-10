@@ -26,44 +26,20 @@
 </template>
 
 <script setup>
-import { inject, reactive, watch, ref, onMounted } from 'vue'
-import axios from 'axios'
+import { inject, reactive, onMounted } from 'vue'
 import debounce from 'lodash.debounce'
 import ProductList from '../components/ProductList.vue'
 import SearchSVG from '@/components/svg/SearchSVG.vue'
-
-const items = ref([])
+import useItems from '@/composables/useItems'
 
 const filters = reactive({
   sortBy: 'title',
   searchQuery: ''
 })
 
-const { handleCart, cart, cartQty } = inject('cart')
-const { handleFavorites, favorites } = inject('favorites')
+const { handleCart, cart, cartQty, handleFavorites, favorites } = inject('shop')
 
-const fetchItems = async () => {
-  const params = {
-    sortBy: filters.sortBy
-  }
-
-  if (filters.searchQuery) {
-    params.title = `*${filters.searchQuery}*`
-  }
-
-  try {
-    const { data } = await axios.get(`https://6b389cda7832ddc2.mokky.dev/items`, {
-      params
-    })
-    items.value = data.map((obj) => ({
-      ...obj,
-      isFavorite: favorites.value.some((favorite) => favorite.id === obj.id),
-      isAdded: cart.value.items.some((cartItem) => cartItem.id === obj.id)
-    }))
-  } catch (err) {
-    console.log(err)
-  }
-}
+const { items, fetchItems } = useItems(filters, cart, cartQty, favorites)
 
 const onSelectChange = (e) => {
   filters.sortBy = e.target.value
@@ -74,36 +50,6 @@ const onSearchInputChange = debounce((e) => {
 }, 500)
 
 onMounted(async () => {
-  const localCart = localStorage.getItem('cart')
-  if (localCart) {
-    cart.value = JSON.parse(localCart)
-  }
-
-  const localFavs = localStorage.getItem('favorites')
-  if (localFavs) {
-    favorites.value = JSON.parse(localFavs)
-  }
   fetchItems()
 })
-
-// watch(cart, () => {
-//   if (!cartQty.value) {
-//     items.value.forEach((item) => (item.isAdded = false))
-//   }
-// })
-
-watch(cart, () => {
-  if (!cartQty.value) {
-    items.value.forEach((item) => (item.isAdded = false))
-  } else {
-    items.value.forEach((item) => {
-      item.isAdded = cart.value.items.some((cartItem) => cartItem.id === item.id)
-    })
-  }
-}, {deep: true})
-
-
-watch(filters, fetchItems)
 </script>
-
-<style scoped></style>

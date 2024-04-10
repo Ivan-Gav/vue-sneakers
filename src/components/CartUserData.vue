@@ -1,7 +1,9 @@
 <template>
   <div class="grow">
     <div class="w-full border-t-2 border-solid my-4"></div>
-    <h4 class="self-center text-center font-bold text-xl mb-4 text-slate-400">Контактная информация</h4>
+    <h4 class="self-center text-center font-bold text-xl mb-4 text-slate-400">
+      Контактная информация
+    </h4>
 
     <div class="grid grid-cols-[2fr_5fr] gap-y-4 mb-4">
       <label for="order-name">Имя<sup class="text-red-600">*</sup></label>
@@ -42,8 +44,5 @@
 <script setup>
 import { inject } from 'vue'
 
-const { cart } = inject('cart')
-
+const { cart } = inject('shop')
 </script>
-
-<style scoped></style>

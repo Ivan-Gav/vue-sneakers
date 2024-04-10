@@ -9,7 +9,7 @@ const app = createApp(App)
 
 app.config.errorHandler = () => {
   localStorage.clear()
-  window.location.reload();
-};
+  window.location.reload()
+}
 
 app.use(autoAnimatePlugin).use(router).mount('#app')

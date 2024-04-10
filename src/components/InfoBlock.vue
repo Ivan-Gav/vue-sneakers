@@ -13,5 +13,3 @@ defineProps({
   imageUrl: String
 })
 </script>
-
-<style scoped></style>

@@ -15,7 +15,5 @@
 import { inject } from 'vue'
 import CartItem from './CartItem.vue'
 
-const { cart, handleCart, handleCartQty, handleSize } = inject('cart')
+const { cart, handleCart, handleCartQty, handleSize } = inject('shop')
 </script>
-
-<style></style>

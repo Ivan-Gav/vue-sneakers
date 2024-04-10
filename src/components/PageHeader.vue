@@ -10,12 +10,11 @@
 
     <nav class="flex items-center gap-10">
       <div
-        @click="() => emit('openDrawer')"
+        @click="openDrawer"
         class="flex items-center cursor-pointer gap-3 text-gray-500 hover:text-black transition"
       >
         <div class="relative">
           <QtyBadge :qty="cartQty" color="green" />
-          <!-- <img src="/cart.svg" alt="cart" /> -->
           <CartSVG />
         </div>
         <strong class="hidden lg:inline-block">{{ total }} ₽</strong>
@@ -27,7 +26,6 @@
       >
         <div class="relative">
           <QtyBadge :qty="favorites.length" color="rose" />
-          <!-- <img src="/heart.svg" alt="favorite" /> -->
           <HeartSVG />
         </div>
         <span class="hidden lg:inline-block">Закладки</span>
@@ -37,7 +35,6 @@
         to="about"
         class="flex items-center cursor-pointer gap-2 text-gray-500 hover:text-black transition custom"
       >
-        <!-- <img src="/info.svg" alt="profile" /> -->
         <InfoSVG />
         <span class="hidden lg:inline-block">О проекте</span>
       </RouterLink>
@@ -52,10 +49,7 @@ import CartSVG from './svg/CartSVG.vue'
 import HeartSVG from './svg/HeartSVG.vue'
 import InfoSVG from './svg/InfoSVG.vue'
 
-const emit = defineEmits(['openDrawer'])
-
-const { total, cartQty } = inject('cart')
-const { favorites } = inject('favorites')
+const { total, cartQty, openDrawer, favorites } = inject('shop')
 </script>
 
 <style scoped>

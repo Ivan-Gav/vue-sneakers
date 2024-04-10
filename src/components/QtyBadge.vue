@@ -25,7 +25,4 @@ const colorVariants = {
   red: 'bg-red-600',
   rose: 'bg-rose-400'
 }
-
 </script>
-
-<style scoped></style>
