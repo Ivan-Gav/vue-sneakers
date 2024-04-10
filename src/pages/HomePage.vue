@@ -78,6 +78,7 @@ onMounted(async () => {
   if (localCart) {
     cart.value = JSON.parse(localCart)
   }
+
   const localFavs = localStorage.getItem('favorites')
   if (localFavs) {
     favorites.value = JSON.parse(localFavs)

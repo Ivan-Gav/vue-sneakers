@@ -13,6 +13,7 @@
 - Изменение количества товара
 - Форма для данных пользователя
 - Исправлена ошибка при сортировке (сбрасывались значки закладок и товара в корзине)
+- Обработка ошибок и страница 404
 - Адаптивная, семантическая верстка
 - Изменен дизайн
 
@@ -26,5 +27,6 @@ Training project - prototype of a Vue-based ecommerce app made by following the 
 - Changing of product quantity in the cart
 - Form for user contact info
 - A sorting bug fixed (losing fav and in-the-cart icons by sorting)
+- error handling and 404 page
 - Adaptive and semantic layout
 - Redesign

@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { computed, provide, ref, watch } from 'vue'
+import { computed, provide, ref, watch, onErrorCaptured } from 'vue'
 import PageHeader from './components/PageHeader.vue'
 import PageFooter from './components/PageFooter.vue'
 import CartDrawer from './components/CartDrawer.vue'
@@ -121,6 +121,13 @@ watch(
   },
   { deep: true }
 )
+
+onErrorCaptured(() => {
+  // reset localstorage on error
+  clearCart()
+  favorites.value = []
+return true;
+});
 
 provide('cart', {
   openDrawer,
